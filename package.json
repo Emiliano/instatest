@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/Emiliano/instatest/issues"
   },
-  "homepage": "https://github.com/Emiliano/instatest#readme"
+  "homepage": "https://github.com/Emiliano/instatest#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "instagram-api": "^1.0.3"
+  }
 }
