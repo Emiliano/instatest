@@ -1,0 +1,24 @@
+{
+  "name": "instatest",
+  "version": "1.0.0",
+  "description": "App for make tests with instagram api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emiliano/instatest.git"
+  },
+  "keywords": [
+    "instagram",
+    "photos",
+    "insta"
+  ],
+  "author": "Erick Emiliano",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Emiliano/instatest/issues"
+  },
+  "homepage": "https://github.com/Emiliano/instatest#readme"
+}
