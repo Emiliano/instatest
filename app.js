@@ -13,13 +13,30 @@ const express = require('express'),
       app = express();
 
 app.get('/', function(req, res) {
-    ig.user_search('cpbr10', function (err, result, remaining, limit) {
-        console.log(result)
+    ig.userSelf().then(function(result) {
+        res.send(result.data);
+        console.log(result.data); // user info
+        console.log(result.limit); // api limit
+        console.log(result.remaining) // api request remaining
+    }, function(err){
+        console.log(err); // error info
+    });
+});
 
-        ig.user_media_recent(result, function (err, result2, remaining, limit) {
-            res.send(result2)
-        });
-
+app.get('/tag', function(req, res) {
+    var params = {
+        count: 20,
+    };
+    if(req.param('n')){
+        params.count = req.param('n');
+    }
+    ig.getMediasByTag('CPBR10', params).then(function(result) {
+        res.send(result.data);
+        console.log(result.data); // user info
+        console.log(result.limit); // api limit
+        console.log(result.remaining) // api request remaining
+    }, function(err){
+        console.log(err); // error info
     });
 });
 
