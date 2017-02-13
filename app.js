@@ -1,5 +1,7 @@
 /**
  * Created by Emiliano on 12/02/17.
+ * Docs: https://github.com/totemstech/instagram-node
+ * https://www.npmjs.com/package/instagram-node
  */
 
 const express = require('express'),
