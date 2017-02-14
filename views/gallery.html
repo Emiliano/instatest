@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gallery</title>
+    <title>Galeria</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -20,18 +20,18 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
 
 <body>
 
-    <!-- Navigation
+    <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display
+            <!-- Brand and toggle get grouped for better mobile display-->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -39,10 +39,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Galeria</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- Collect the nav links, forms, and other content for toggling-->
+            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="#">About</a>
@@ -54,24 +54,36 @@
                         <a href="#">Contact</a>
                     </li>
                 </ul>
-            </div>
-            <!-- /.navbar-collapse
+            </div>-->
+            <!-- /.navbar-collapse-->
         </div>
-        <!-- /.container
-    </nav>-->
+        <!-- /.container-->
+    </nav>
 
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+        <hr>
 
-            <div class="col-lg-12">
-                <h1 class="page-header">Gallery</h1>
-            </div>
+        <form class="form-inline" action="/tag" method="get">
+            <label class="sr-only" for="inlineFormInput">N:</label>
+                <input type="number" class="form-control" id="inlineFormInput" name="n" value="<%= count %>">
+                <label class="sr-only" for="inlineFormInputGroup">Tag</label>
+                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon">#</div>
+                    <input type="text" class="form-control" id="inlineFormInputGroup" value="<%= tag %>" name="tag">
+                </div>
+                <button type="submit" class="btn btn-success">Enviar</button>
+                <a href="/" class="btn btn-primary" role="button">Voltar</a>
+        </form>
+
+        <hr>
+
+        <div class="row">
             <% response.forEach(function(data){ %>
-            <div class="col-lg-2 col-md-2 col-xs-6 thumb">
-                <a class="thumbnail" href="<%= data.link %> ">
-                    <img class="img-responsive" src="<%= data.images.thumbnail.url %>" alt="<%= data.caption.text %> ">
+            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
+                <a rel="gallery" title="<%= data.caption.text %>" class="thumbnail" href="<%= data.link %> ">
+                    <img class="img-responsive" src="<%= data.images.standard_resolution.url %>" alt="<%= data.caption.text %> ">
                 </a>
             </div>
             <% }) %>
@@ -93,6 +105,7 @@
 
     <!-- jQuery -->
     <script src="/js/jquery.js"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="/js/bootstrap.min.js"></script>

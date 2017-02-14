@@ -6,7 +6,7 @@
 
 const express = require('express')
     , InstagramAPI = require('instagram-api')
-    , access_token = '240993422.e3987d8.3b585871d3714523a6af06421d001eb8'
+    , access_token = '41586199.e3987d8.6f02088202354011b252a54860d78ab1'
     , client_id = 'e3987d83c96f4646885afc6a5abc9c5e'
     , client_secret = '4a1f6a89eeda434d8b7fb0aa469a3d59'
     , ig = new InstagramAPI(access_token)
@@ -46,32 +46,39 @@ app.get('/test', function(req, res) {
     });
 });
 
+app.get('/slides', function (req, res) {
+    res.render('slides');
+});
+
 app.get('/', function (req, res) {
     res.render('index');
 });
 
 app.get('/tag', function(req, res) {
-
     var params = {
-        count: req.query['n'] || '20'
+        count: req.query['n'] || '2'
     };
-
-    var tag = req.query['tag'] || 'CPBR10';
+    var tag = req.query['tag'] || 'sorvete',
+        slide = req.query['s'] || '0';
     console.log('params: ' + params.count + '\ntag: ' + tag);
+    if (tag.length >= 1) {
+        ig.getMediasByTag(tag, params).then(function (result) {
+            console.log(result.data); // user info
+            console.log(result.limit); // api limit
+            console.log(result.remaining); // api request remaining
+            /**for(var i = 0, l = result.data.length; i < l; i++ ) {
+                console.log(result.data[i].images.thumbnail.url);//standard_resolution
+            }**/
+            res.render('gallery', {
+                response: result.data,
+                tag: tag,
+                count: params.count
+            });
 
-    ig.getMediasByTag(tag, params).then(function(result) {
-        console.log(result.data); // user info
-        console.log(result.limit); // api limit
-        console.log(result.remaining); // api request remaining
-        /**for(var i = 0, l = result.data.length; i < l; i++ ) {
-            console.log(result.data[i].images.thumbnail.url);//standard_resolution
-        }**/
-        res.render('gallery', {
-            response: result.data
+        }, function (err) {
+            console.log(err); // error info
         });
-    }, function(err){
-        console.log(err); // error info
-    });
+    };
 });
 
 
