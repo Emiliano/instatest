@@ -63,19 +63,18 @@
     <!-- Page Content -->
     <div class="container">
 
-        <hr>
-
         <div class="row">
-            <form class="form-inline" action="/tag" method="get">
-                <label class="sr-only" for="inlineFormInput">N:</label>
-                <input type="number" class="form-control" id="inlineFormInput" name="n" placeholder="20">
-                <label class="sr-only" for="inlineFormInputGroup">Tag</label>
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="input-group-addon">#</div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Tag" name="tag">
-                </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
+
+            <div class="col-lg-12">
+                <h1 class="page-header">Gallery</h1>
+            </div>
+            <% response.forEach(function(data){ %>
+            <div class="col-lg-2 col-md-2 col-xs-6 thumb">
+                <a class="thumbnail" href="<%= data.link %> ">
+                    <img class="img-responsive" src="<%= data.images.thumbnail.url %>" alt="<%= data.caption.text %> ">
+                </a>
+            </div>
+            <% }) %>
         </div>
 
         <hr>
