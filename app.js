@@ -25,16 +25,17 @@ const express = require('express')
 
     app.engine('.html', require('ejs').__express);
 
-    // Optional since express defaults to CWD/views
+// Optional since express defaults to CWD/views
 
     app.set('views', __dirname + '/views');
+    app.use(express.static(__dirname + '/public'));
 
     // Without this you would need to
     // supply the extension to res.render()
     // ex: res.render('users.html').
     app.set('view engine', 'html');
 
-app.get('/', function(req, res) {
+app.get('/test', function(req, res) {
     ig.userSelf().then(function(result) {
         res.send(result.data);
         console.log(result.data); // user info
@@ -45,30 +46,28 @@ app.get('/', function(req, res) {
     });
 });
 
+app.get('/', function (req, res) {
+    res.render('index');
+});
+
 app.get('/tag', function(req, res) {
+
     var params = {
-        count: 20,
+        count: req.query['n'] || '20'
     };
-    if(req.param('n')){
-        params.count = req.param('n');
-    }
-    ig.getMediasByTag('CPBR10', params).then(function(result) {
-        //res.send(result.data);
+
+    var tag = req.query['tag'] || 'CPBR10';
+    console.log('params: ' + params.count + '\ntag: ' + tag);
+
+    ig.getMediasByTag(tag, params).then(function(result) {
         console.log(result.data); // user info
         console.log(result.limit); // api limit
         console.log(result.remaining); // api request remaining
-        for(var i = 0, l = result.data.length; i < l; i++ ) {
-            console.log(result.data[i].images.standard_resolution.url);
-            /**var users = [
-                { name: 'tobi', email: 'tobi@learnboost.com' },
-                { name: 'loki', email: 'loki@learnboost.com' },
-                { name: 'jane', email: 'jane@learnboost.com' }
-            ];**/
-        }
-        res.render('users', {
-            users: result.data,
-            title: "EJS example",
-            header: "Some users"
+        /**for(var i = 0, l = result.data.length; i < l; i++ ) {
+            console.log(result.data[i].images.thumbnail.url);//standard_resolution
+        }**/
+        res.render('gallery', {
+            response: result.data
         });
     }, function(err){
         console.log(err); // error info
